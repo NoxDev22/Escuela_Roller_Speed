@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Usuarios</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <style>
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="navbar">
+
+
+    <a th:href="@{/usuarios}">
+        Usuarios
+    </a>
+
+</div>
+
+<div class="container">
+
+    
+
+        <h1>Panel Principal Administrador</h1>
+
+        <p>
+            Bienvenido al sistema administrativo de Roller Speed.
+        </p>
+
+
+    <a
+        th:href="@{/usuarios/nuevo}"
+        class="btn btn-nuevo">
+
+        + Nuevo Usuario
+
+    </a>
+
+    <table>
+
+    
+
+        <thead>
+
+        <tr>
+
+            <th>ID</th>
+
+            <th>Usuario</th>
+
+            <th>Rol</th>
+
+            <th>Estado</th>
+
+            <th>Acciones</th>
+
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        <tr th:each="usuario : ${usuarios}">
+
+            <td th:text="${usuario.userId}"></td>
+
+            <td th:text="${usuario.userName}"></td>
+
+            <td th:text="${usuario.role.rolName}"></td>
+
+            <td>
+                <span
+
+                th:text="${usuario.userState ? 'Activo' : 'Inactivo'}"
+                th:classappend="${usuario.userState} ? 'estado-activo' : 'estado-inactivo'">
+
+                </span>
+            </td>
+
+            <td class="acciones">
+
+                <a
+                    th:href="@{/usuarios/detalle/{id}(id=${usuario.userId})}"
+                    class="btn btn-ver">
+
+                    Ver
+
+                </a>
+
+                <a
+                    th:href="@{/usuarios/editar/{id}(id=${usuario.userId})}"
+                    class="btn btn-editar">
+
+                    Editar
+
+                </a>
+
+                <a
+                    th:href="@{/usuarios/eliminar/{id}(id=${usuario.userId})}"
+                    class="btn btn-eliminar">
+
+                    Eliminar
+
+                </a>
+
+            </td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+
+</html>
