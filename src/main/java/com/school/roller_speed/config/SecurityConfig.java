@@ -3,11 +3,8 @@ package com.school.roller_speed.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
@@ -19,29 +16,11 @@ public class SecurityConfig {
                 return new BCryptPasswordEncoder();
         }
 
-        @Bean
-        public InMemoryUserDetailsManager userDetailsService(PasswordEncoder encoder) {
-                UserDetails admin = User.withUsername("admin")
-                                .password(encoder.encode("1234"))
-                                .roles("ADMIN")
-                                .build();
-
-                UserDetails docente = User.withUsername("docente")
-                                .password(encoder.encode("doc123"))
-                                .roles("DOCENTE")
-                                .build();
-
-                UserDetails estudiante = User.withUsername("estudiante")
-                                .password(encoder.encode("est123"))
-                                .roles("ESTUDIANTE")
-                                .build();
-
-                return new InMemoryUserDetailsManager(admin, docente, estudiante);
-        }
+        // UserDetailsService is provided by DatabaseUserDetailsService (JPA). Keep PasswordEncoder here.
 
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http,
-                                                                                                   AuthenticationSuccessHandler successHandler) throws Exception {
+                                                       AuthenticationSuccessHandler successHandler) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
@@ -55,7 +34,8 @@ public class SecurityConfig {
                                 "/valores",
                                 "/eventos",
                                 "/index",
-                                "/error"
+                                "/error",
+                                "/vista-de-estudiantes" // <-- Le damos permiso libre para ver tus datos reales
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
@@ -73,5 +53,5 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable());
 
         return http.build();
-    }
+        }
 }
