@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RollerSpeed | Vista de Estudiantes</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="student-app">
+    <aside class="student-sidebar">
+        <div class="sidebar-brand">
+            <span>RollerSpeed</span>
+            <p>Elite Skating Academy</p>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="active">panel de inicio</a>
+            <a href="#">Usuarios</a>
+            <a href="#">Estudiantes</a>
+            <a href="#">profesores</a>
+            <a href="#">Grupos</a>
+        </nav>
+        <button class="sidebar-button">Registrar estudiante</button>
+        <div class="sidebar-footer">
+            <a href="#">Configuracion</a>
+            <a href="#">Suporte</a>
+        </div>
+    </aside>
+
+    <main class="student-main">
+        <header class="student-main-header">
+            <div>
+                <h1>grupos asignados</h1>
+                <p>Aqui encontraras informacion para ver tu grupo, horario y docente asignado.</p>
+            </div>
+            <a th:href="@{/logout}" class="secondary-button logout-button">Cerrar sesión</a>
+        </header>
+
+        <section class="top-cards">
+            <article class="top-card">
+                <div class="top-card-band top-card-blue">
+                    <div class="band-content">
+                        <div class="top-card-meta">PATINADORES DE ELITE</div>
+                        <div class="top-card-label">PROFESIONALES</div>
+                    </div>
+                </div>
+                <div class="top-card-body">
+                    <!-- optional body content -->
+                </div>
+            </article>
+
+            <article class="top-card">
+                <div class="top-card-band top-card-red">
+                    <div class="band-content">
+                        <div class="top-card-meta">PATINADORES JUNIOR A</div>
+                        <div class="top-card-label">PRINCIPIANTES</div>
+                    </div>
+                </div>
+                <div class="top-card-body">
+                    <!-- optional body content -->
+                </div>
+            </article>
+
+            <article class="top-card">
+                <div class="top-card-band top-card-grey">
+                    <div class="band-content">
+                        <div class="top-card-meta">TAINADORES INTERMEDIOS</div>
+                        <div class="top-card-label">INTERMEDIO</div>
+                    </div>
+                </div>
+                <div class="top-card-body">
+                    <!-- optional body content -->
+                </div>
+            </article>
+        </section>
+
+        <section class="student-panels">
+            <article class="student-panel card-blue">
+                <div class="panel-header">
+                    <span>Grupo</span>
+                    <strong>Group A</strong>
+                </div>
+                <p>Iniciación al patinaje de velocidad.</p>
+            </article>
+            <article class="student-panel card-red">
+                <div class="panel-header">
+                    <span>Horario</span>
+                    <strong>3 clases</strong>
+                </div>
+                <p>Lunes 16:00 - 17:30<br>Miércoles 16:00 - 17:30<br>Viernes 16:00 - 17:30</p>
+            </article>
+            <article class="student-panel card-grey">
+                <div class="panel-header">
+                    <span>Docente</span>
+                    <strong>Juan Pérez</strong>
+                </div>
+                <p>Correo: juan.perez@rollerspeed.com</p>
+            </article>
+        </section>
+    </main>
+</div>
+</body>
+</html>

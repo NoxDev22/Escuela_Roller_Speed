@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class NavController {
 
-    @GetMapping("/")
+    @GetMapping("/nav")
     public String getMethodName() {
         return "index";
     }
