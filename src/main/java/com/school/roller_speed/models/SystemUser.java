@@ -17,8 +17,8 @@ public class SystemUser {
     @Column(name = "user_password")
     private String userPassword;
 
-    @Column(name = "user_state")
-    private Boolean userState;
+    @Column(name = "user_assigned")
+    private Boolean userAssigned;
 
     @ManyToOne
     @JoinColumn(name = "rol_id")
@@ -50,13 +50,13 @@ public class SystemUser {
         this.userPassword = userPassword;
     }
 
-    public Boolean getUserState() {
-        return userState;
-    }
+   public Boolean getUserAssigned() {
+    return userAssigned;
+}
 
-    public void setUserState(Boolean userState) {
-        this.userState = userState;
-    }
+public void setUserAssigned(Boolean userAssigned) {
+    this.userAssigned = userAssigned;
+}
 
     public UserRole getRole() {
         return role;

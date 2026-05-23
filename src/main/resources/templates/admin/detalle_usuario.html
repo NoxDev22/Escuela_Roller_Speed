@@ -29,7 +29,7 @@
             <th>Nombre Usuario</th>
             <th>Contraseña</th>
             <th>Rol</th>
-            <th>Estado</th>
+            <th>Estado de Asignacion</th>
 
         </tr>
 
@@ -47,7 +47,7 @@
 
             <td th:text="${usuario.role.rolName}"></td>
 
-            <td th:text="${usuario.userState ? 'Activo' : 'Inactivo'}"></td>
+            <td th:text="${usuario.userAssigned ? 'Asignado' : 'Inactivo'}"></td>
 
         </tr>
 
