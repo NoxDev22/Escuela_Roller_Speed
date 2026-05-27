@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -68,16 +69,21 @@ private StudentRepository studentRepository;
     // GUARDAR USUARIO
 
     @PostMapping("/usuarios/guardar")
-    public String guardarUsuario(
-            @ModelAttribute SystemUser usuario
-    ) {
+        public String guardarUsuario(
+        @ModelAttribute SystemUser usuario,
+        RedirectAttributes redirectAttributes
+        ) {
 
         userService.guardarUsuario(usuario);
 
-        return "redirect:/usuarios";
-    }
+        redirectAttributes.addFlashAttribute(
+            "mensajeExito",
+            "Usuario creado correctamente"
+        );
 
-    // VER DETALLE USUARIO
+        return "redirect:/usuarios";
+        }
+  
 
     // VER DETALLE USUARIO
 
@@ -154,14 +160,20 @@ public String verDetalleUsuario(
     // ACTUALIZAR USUARIO
 
     @PostMapping("/usuarios/actualizar")
-    public String actualizarUsuario(
-            @ModelAttribute SystemUser usuario
-    ) {
+        public String actualizarUsuario(
+        @ModelAttribute SystemUser usuario,
+        RedirectAttributes redirectAttributes
+        ) {
 
         userService.guardarUsuario(usuario);
 
+        redirectAttributes.addFlashAttribute(
+            "mensajeExito",
+            "Usuario actualizado"
+         );
+
         return "redirect:/usuarios";
-    }
+        }
 
     // ELIMINAR USUARIO
 

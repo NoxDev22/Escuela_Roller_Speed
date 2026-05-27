@@ -37,10 +37,6 @@ public List<SystemUser> listarUsuarios() {
 
 public void guardarUsuario(SystemUser user) {
 
-    // Usuario disponible por defecto
-
-    user.setUserAssigned(false);
-
     userRepository.save(user);
 
 }

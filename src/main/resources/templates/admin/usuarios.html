@@ -45,6 +45,8 @@
 
     </a>
 
+   
+
     <table>
 
     
@@ -59,7 +61,7 @@
 
             <th>Rol</th>
 
-            <th>Estado de Asignacion</th>
+            <th>Estado de Asignación</th>
 
             <th>Acciones</th>
 
@@ -104,13 +106,15 @@
 
                 </a>
 
-                <a
-                    th:href="@{/usuarios/eliminar/{id}(id=${usuario.userId})}"
-                    class="btn btn-eliminar">
+                <button
+                    type="button"
+                    class="btn btn-eliminar"
+                    th:attr="data-url=@{/usuarios/eliminar/{id}(id=${usuario.userId})}"
+                    onclick="abrirModal(this)">
 
                     Eliminar
 
-                </a>
+                </button>
 
             </td>
 
@@ -121,6 +125,112 @@
     </table>
 
 </div>
+
+            <div
+    th:if="${mensajeExito}"
+    id="popup-exito"
+    class="popup-overlay">
+
+    <div class="popup-card">
+
+        <div class="check-container">
+
+            <div class="check-circle">
+
+                ✓
+
+            </div>
+
+        </div>
+
+        <h2 th:text="${mensajeExito}"></h2>
+
+    </div>
+
+</div>
+
+<script>
+
+    const popup =
+        document.getElementById("popup-exito");
+
+    if (popup) {
+
+        setTimeout(() => {
+
+            popup.classList.add("ocultar");
+
+        }, 2000);
+
+    }
+
+</script>
+
+<!-- MODAL ELIMINAR -->
+
+<div id="modalEliminar" class="modal-overlay">
+
+    <div class="modal-card">
+
+        <h2>
+            ¿Está seguro de eliminar este usuario?
+        </h2>
+
+        <p>
+            Esta acción no se puede deshacer.
+        </p>
+
+        <div class="modal-buttons">
+
+            <a
+                id="btnConfirmarEliminar"
+                href="#"
+                class="btn btn-confirmar">
+
+                Eliminar usuario
+
+            </a>
+
+            <button
+                class="btn btn-cancelar-modal"
+                onclick="cerrarModal()">
+
+                Cancelar
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    function abrirModal(button){
+
+        const url =
+            button.getAttribute("data-url");
+
+        document.getElementById(
+            "btnConfirmarEliminar"
+        ).href = url;
+
+        document.getElementById(
+            "modalEliminar"
+        ).classList.add("mostrar-modal");
+
+    }
+
+    function cerrarModal(){
+
+        document.getElementById(
+            "modalEliminar"
+        ).classList.remove("mostrar-modal");
+
+    }
+
+</script>
 
 </body>
 

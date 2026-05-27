@@ -17,8 +17,8 @@ public class SystemUser {
     @Column(name = "user_password")
     private String userPassword;
 
-    @Column(name = "user_assigned")
-    private Boolean userAssigned;
+   @Column(name = "user_assigned")
+    private Boolean userAssigned = false;
 
     @ManyToOne
     @JoinColumn(name = "rol_id")
@@ -52,11 +52,11 @@ public class SystemUser {
 
    public Boolean getUserAssigned() {
     return userAssigned;
-}
+    }
 
-public void setUserAssigned(Boolean userAssigned) {
+    public void setUserAssigned(Boolean userAssigned) {
     this.userAssigned = userAssigned;
-}
+    }
 
     public UserRole getRole() {
         return role;
