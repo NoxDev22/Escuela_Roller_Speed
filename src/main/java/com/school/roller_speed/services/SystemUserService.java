@@ -27,27 +27,54 @@ public class SystemUserService {
     @Autowired
     private TeacherRepository TeacherRepository;
 
-// LISTAR USUARIOS
+    // LISTAR USUARIOS
 
-public List<SystemUser> listarUsuarios() {
-    return userRepository.findAll();
+    public List<SystemUser> listarUsuarios() {
+
+        return userRepository.findAll();
+
     }
 
-// GUARDAR USUARIO
+    // GUARDAR USUARIO
 
-public void guardarUsuario(SystemUser user) {
+    public void guardarUsuario(SystemUser user) {
 
-    userRepository.save(user);
+        // SI ES EDICIÓN
 
-}
+        if (user.getUserId() != null) {
 
-// BUSCAR POR ID
+            SystemUser usuarioActual =
+                    buscarPorId(user.getUserId());
 
-public SystemUser buscarPorId(Long id) {
-    Optional<SystemUser> optional =
-    userRepository.findById(id);
+            // SI LA CONTRASEÑA ES INVÁLIDA
+            // CONSERVAR LA ANTERIOR
 
-    return optional.orElse(null);
+            if (
+                user.getUserPassword() == null ||
+                user.getUserPassword().trim().length() < 4
+            ) {
+
+                user.setUserPassword(
+                        usuarioActual.getUserPassword()
+                );
+
+            }
+
+        }
+
+        userRepository.save(user);
+
+    }
+
+    // BUSCAR POR ID
+
+    public SystemUser buscarPorId(Long id) {
+
+        Optional<SystemUser> optional =
+                userRepository.findById(id);
+
+        return optional.orElse(null);
+
     }
 
     // ELIMINAR
@@ -96,8 +123,3 @@ public SystemUser buscarPorId(Long id) {
     }
 
 }
-
-
-
-
-
