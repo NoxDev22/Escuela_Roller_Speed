@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface SystemUserRepository extends JpaRepository<SystemUser, Long> {
 
-    @Query("SELECT u FROM SystemUser u WHERE u.userId NOT IN (SELECT t.user.userId FROM Teacher t WHERE t.user IS NOT NULL)")
+    @Query("SELECT u FROM SystemUser u WHERE u.userAssigned = false")
     List<SystemUser> findAvailableUsers();
 }

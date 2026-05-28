@@ -35,9 +35,12 @@ public class TeacherController {
 
     @PostMapping("/admin/teachers/save")
     public String guardarDocente(@ModelAttribute("docente") Teacher teacher) {
-        // Find the user object by ID from the form submission to link properly in the OneToOne relation
         if (teacher.getUser() != null && teacher.getUser().getUserId() != null) {
-            systemUserRepository.findById(teacher.getUser().getUserId()).ifPresent(teacher::setUser);
+            systemUserRepository.findById(teacher.getUser().getUserId()).ifPresent(u -> {
+                u.setUserAssigned(true);
+                systemUserRepository.save(u);
+                teacher.setUser(u);
+            });
         } else {
             teacher.setUser(null);
         }

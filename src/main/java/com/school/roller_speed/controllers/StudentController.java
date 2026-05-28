@@ -35,7 +35,11 @@ public class StudentController {
     @PostMapping("/admin/students/save")
     public String guardarEstudiante(@ModelAttribute("estudiante") Student student) {
         if (student.getUser() != null && student.getUser().getUserId() != null) {
-            systemUserRepository.findById(student.getUser().getUserId()).ifPresent(student::setUser);
+            systemUserRepository.findById(student.getUser().getUserId()).ifPresent(u -> {
+                u.setUserAssigned(true);
+                systemUserRepository.save(u);
+                student.setUser(u);
+            });
         } else {
             student.setUser(null);
         }
