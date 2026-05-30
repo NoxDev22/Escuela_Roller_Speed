@@ -1,38 +1,59 @@
 package com.school.roller_speed.controllers;
 
-import com.school.roller_speed.models.Student;
-import com.school.roller_speed.models.SystemUser;
-import com.school.roller_speed.repositories.StudentRepository;
-import com.school.roller_speed.repositories.SystemUserRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.List;
+import com.school.roller_speed.dto.StudentGroupDto;
+import com.school.roller_speed.models.Student;
+import com.school.roller_speed.models.SystemUser;
+import com.school.roller_speed.repositories.StudentRepository;
+import com.school.roller_speed.repositories.SystemUserRepository;
+import com.school.roller_speed.services.StudentService;
 
 @Controller
 public class StudentController {
-
     @Autowired
+     private StudentService studentService;
+     @Autowired
+     private SystemUserRepository systemUserRepository;
+     @Autowired
     private StudentRepository studentRepository;
 
-    @Autowired
-    private SystemUserRepository systemUserRepository;
+      public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
 
-    @GetMapping("/admin/students/register")
+    /*==============================================*/
+    @GetMapping("/estudiante/agregar")
     public String mostrarFormulario(Model model) {
         model.addAttribute("estudiante", new Student());
 
         List<SystemUser> disponibles = systemUserRepository.findAvailableUsers();
         model.addAttribute("usuariosDisponibles", disponibles);
 
-        return "registro-estudiante";
+        return "admin/agregar_estudiante";
     }
+    /*==============================================*/
+    @GetMapping("/estudiante/{userId}")
+    public String getStudent(@PathVariable Long userId,
+                             Model model) {
+                                
+        StudentGroupDto studentInfo =
+                studentService.getStudentInformation(userId);
 
-    @PostMapping("/admin/students/save")
+        model.addAttribute("studentInfo", studentInfo);
+
+        return "/student/grupos_estudiante";
+    }
+    /*==============================================*/
+    @PostMapping("estudiantes/guardar")
     public String guardarEstudiante(@ModelAttribute("estudiante") Student student) {
         if (student.getUser() != null && student.getUser().getUserId() != null) {
             systemUserRepository.findById(student.getUser().getUserId()).ifPresent(u -> {
@@ -43,9 +64,13 @@ public class StudentController {
         } else {
             student.setUser(null);
         }
-
         studentRepository.save(student);
 
-        return "redirect:/admin/students/register?exito=true";
+        return "redirect:/estudiantes?exito=true";
     }
+  
+    
 }
+
+
+

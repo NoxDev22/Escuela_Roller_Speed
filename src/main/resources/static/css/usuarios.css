@@ -1,0 +1,361 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f3f4f6;
+}
+
+/* ===== CONTENEDOR ===== */
+
+.container {
+  width: 90%;
+  margin: auto;
+  margin-top: 40px;
+  margin-bottom: 60px;
+}
+
+/* ===== CARDS ===== */
+
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== TITULOS ===== */
+
+h1 {
+  margin-bottom: 20px;
+  color: #0f172a;
+}
+
+/* ===== TABLAS ===== */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+table th {
+  background: #0f172a;
+  color: white;
+}
+
+table th,
+table td {
+  padding: 15px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+/* ESTADO */
+
+.estado-activo {
+  display: inline-block;
+  padding: 4px 10px;
+  border: 1px solid #28a745;
+  border-radius: 20px;
+  background-color: rgba(40, 167, 69, 0.15);
+  color: #28a745;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.estado-inactivo {
+  display: inline-block;
+  padding: 4px 10px;
+  border: 1px solid #dc3545;
+  border-radius: 20px;
+  background-color: rgba(220, 53, 69, 0.15);
+  color: #dc3545;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ===== BOTONES ===== */
+
+.btn {
+  display: inline-block;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: 0.3s;
+  text-align: center;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+/* BOTON AGREGAR */
+
+.btn-nuevo {
+  margin-top: 20px;
+  background: #ef4444;
+  margin-bottom: 5px;
+}
+
+/* BOTON VER */
+
+.btn-ver {
+  background: #0f172a;
+}
+
+/* BOTON EDITAR */
+
+.btn-editar {
+  background: #0047ab;
+}
+
+/* BOTON ELIMINAR */
+
+.btn-eliminar {
+  background: #64748b;
+}
+
+/* BOTON GUARDAR */
+
+.btn-guardar {
+  background: #0f172a;
+}
+
+/* BOTON CANCELAR */
+
+.btn-cancelar {
+  background: #ef4444;
+}
+
+/* ===== CONTENEDOR BOTONES ACCIONES ===== */
+
+.acciones {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ===== FORMULARIOS ===== */
+
+.form-container {
+  width: 500px;
+  margin: auto;
+  margin-top: 50px;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* ===== BOTONES FORMULARIO ===== */
+
+.form-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.form-buttons .btn {
+  flex: 1;
+}
+
+/* ===== POPUP EXITO ===== */
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+}
+
+.popup-card {
+  background: white;
+  width: 420px;
+  padding: 55px 40px;
+  border-radius: 22px;
+  text-align: center;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+  animation: popupScale 0.3s ease;
+}
+
+.check-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.check-circle {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: white;
+  border: 3px solid #22c55e;
+  color: #22c55e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 60px;
+  font-weight: bold;
+  animation: checkAnim 0.5s ease;
+}
+
+.popup-card h2 {
+  color: #0f172a;
+  font-size: 28px;
+  margin-top: 10px;
+}
+
+/* ===== ANIMACIONES ===== */
+
+@keyframes popupScale {
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes checkAnim {
+  0% {
+    transform: scale(0);
+  }
+
+  70% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* ===== OCULTAR ===== */
+
+.ocultar {
+  animation: fadeOut 0.4s ease forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* ===== MODAL ELIMINAR ===== */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+}
+
+.mostrar-modal {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-card {
+  background: white;
+  width: 430px;
+  padding: 40px;
+  border-radius: 22px;
+  text-align: center;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+  transform: scale(0.8);
+  transition: 0.3s;
+}
+
+.mostrar-modal .modal-card {
+  transform: scale(1);
+}
+
+.modal-card h2 {
+  color: #0f172a;
+  margin-bottom: 15px;
+  font-size: 28px;
+}
+
+.modal-card p {
+  color: #64748b;
+  margin-bottom: 30px;
+  font-size: 16px;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.btn-confirmar {
+  background: #0f172a;
+}
+
+.btn-cancelar-modal {
+  background: #ef4444;
+}

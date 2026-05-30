@@ -1,9 +1,7 @@
 package com.school.roller_speed.controllers;
 
-import com.school.roller_speed.models.SystemUser;
-import com.school.roller_speed.models.Teacher;
-import com.school.roller_speed.repositories.SystemUserRepository;
-import com.school.roller_speed.repositories.TeacherRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,18 +9,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.List;
+import com.school.roller_speed.models.SystemUser;
+import com.school.roller_speed.models.Teacher;
+import com.school.roller_speed.repositories.SystemUserRepository;
+import com.school.roller_speed.repositories.TeacherRepository;
 
 @Controller
 public class TeacherController {
-
-    @Autowired
+     @Autowired
     private TeacherRepository teacherRepository;
 
     @Autowired
     private SystemUserRepository systemUserRepository;
 
-    @GetMapping("/admin/teachers/register")
+    @GetMapping("/entrenador/agregar")
     public String mostrarFormulario(Model model) {
         model.addAttribute("docente", new Teacher());
         
@@ -30,10 +30,10 @@ public class TeacherController {
         List<SystemUser> disponibles = systemUserRepository.findAvailableUsers();
         model.addAttribute("usuariosDisponibles", disponibles);
         
-        return "registro-docente";
+        return "admin/agregar_entrenador";
     }
 
-    @PostMapping("/admin/teachers/save")
+    @PostMapping("/entrenador/guardar")
     public String guardarDocente(@ModelAttribute("docente") Teacher teacher) {
         if (teacher.getUser() != null && teacher.getUser().getUserId() != null) {
             systemUserRepository.findById(teacher.getUser().getUserId()).ifPresent(u -> {
@@ -47,6 +47,6 @@ public class TeacherController {
         
         teacherRepository.save(teacher);
         
-        return "redirect:/admin/teachers/register?exito=true";
+        return "redirect:/entrenador/agregar?exito=true";
     }
 }

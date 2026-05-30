@@ -5,24 +5,183 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="shortcut icon"
-      href="../static/icon_roller_speed.png"
+      th:href="@{./icons/icon_roller_speed.png}"
       type="image/x-icon"
     />
+    <link rel="stylesheet" th:href="@{./css/index.css}" />
     <title>Roller Speed</title>
   </head>
   <body>
-    <header>
-      <nav>
-        <ul>
-          <li><a th:href="@{/mision}">Misión</a></li>
-          <li><a th:href="@{/vision}">Visión</a></li>
-          <li><a th:href="@{/valores}">Valores</a></li>
-          <li><a th:href="@{/servicios}">Servicios</a></li>
-          <li><a th:href="@{/eventos}">Eventos</a></li>
-          <li><a th:href="@{/admin/teachers/register}">Registro Docente</a></li>
+    <main class="">
+      <section class="hero">
+        <div class="hero__header">
+          <a th:href="@{/ingresar}" class="hero__btnSession">Iniciar Sesión</a>
+        </div>
+        <div class="hero__info">
+          <h1 class="hero__title">Bienvenido a Roller Speed</h1>
+          <p class="hero_description">
+            Roller Speed es una escuela de patinaje dedicada a formar
+            deportistas con disciplina, pasión y trabajo en equipo. Nuestro
+            objetivo es impulsar el talento de niños, jóvenes y adultos mediante
+            entrenamientos dinámicos, seguros y llenos de energía. Aquí no solo
+            aprendemos a patinar, también construimos confianza, perseverancia y
+            espíritu competitivo.
+          </p>
+          <div class="hero__buttons">
+            <a href="" class="hero__btn">Conoce mas</a>
+            <a href="" class="hero__btn">Inscríbete ahora</a>
+          </div>
+        </div>
+      </section>
+      <section class="container mainContent">
+        <div class="mainContent__card">
+          <h2>Misión</h2>
+          <p>
+            En Roller Speed trabajamos para promover el deporte y el desarrollo
+            integral de nuestros estudiantes a través del patinaje. Brindamos
+            entrenamiento de calidad en un ambiente seguro, motivador y lleno de
+            valores, fomentando la disciplina, el respeto y el crecimiento
+            personal.
+          </p>
+        </div>
+        <div class="mainContent__card">
+          <h2>Visión</h2>
+          <p>
+            Ser una escuela de patinaje reconocida por formar deportistas
+            destacados y personas íntegras, convirtiéndonos en un referente
+            deportivo a nivel local y nacional gracias a nuestra excelencia,
+            compromiso y pasión por el patinaje.
+          </p>
+        </div>
+        <div class="mainContent__card">
+          <h2>Valores</h2>
+          <ul class="mainContent__cardList">
+            <li>
+              <p class="mainContent__listTitle">➡️ Disciplina</p>
+              <p>
+                Fomentamos la constancia y el esfuerzo en cada entrenamiento.
+              </p>
+            </li>
+            <li>
+              <p class="mainContent__listTitle">➡️ Respeto</p>
+              <p>Promovemos el compañerismo, la empatía y el juego limpio.</p>
+            </li>
+            <li>
+              <p class="mainContent__listTitle">➡️ Pasión</p>
+              <p>
+                vivimos el patinaje con energía, motivación y amor por el
+                deporte.
+              </p>
+            </li>
+            <li>
+              <p class="mainContent__listTitle">➡️ Trabajo en equipo</p>
+              <p>Creemos en el apoyo mutuo para alcanzar grandes metas.</p>
+            </li>
+            <li>
+              <p class="mainContent__listTitle">➡️ Perseverancia</p>
+              <p>Enseñamos a superar obstáculos y nunca rendirse.</p>
+            </li>
+          </ul>
+        </div>
+        <div class="mainContent__card">
+          <h2>Servicios</h2>
+          <ul class="mainContent__cardList">
+            <li>
+              <p class="mainContent__listTitle">➡️ Clases de iniciación</p>
+              <p>
+                Para niños y principiantes que desean aprender las bases del
+                patinaje.
+              </p>
+            </li>
+            <li>
+              <p class="mainContent__listTitle">➡️ Entrenamiento avanzado</p>
+              <p>
+                Preparación técnica y física para competencias y alto
+                rendimiento.
+              </p>
+            </li>
+            <li>
+              <p class="mainContent__listTitle">
+                ➡️ Clases para todas las edades
+              </p>
+              <p>Programas adaptados para niños, jóvenes y adultos.</p>
+            </li>
+            <li>
+              <p class="mainContent__listTitle">➡️ Preparación competitiva</p>
+              <p>
+                Entrenamientos especializados para torneos y eventos deportivos.
+              </p>
+            </li>
+            <li>
+              <p class="mainContent__listTitle">➡️ Actividades recreativas</p>
+              <p>
+                Jornadas deportivas, integración y eventos para la comunidad.
+              </p>
+            </li>
+          </ul>
+        </div>
+        <section class="mainContent__events">
+          <h2 class="mainContent__eventsTitle">Próximos Eventos</h2>
+          <div class="events__contCards">
+            <div class="events__card">
+              <h2 class="events__cardTitle">Festival Roller Kids</h2>
+              <p>Competencia recreativa para niños y principiantes.</p>
+              <p class="events__cardTxtCalendar">
+                <span>📆</span>
+                15 de junio de 2026
+              </p>
+            </div>
+            <div class="events__card">
+              <h2 class="events__cardTitle">Carrera Urbana Roller Speed</h2>
+              <p>
+                Evento de velocidad y resistencia para categorías juveniles y
+                adultos.
+              </p>
+              <p class="events__cardTxtCalendar">
+                <span>📆</span>
+                28 de julio de 2026
+              </p>
+            </div>
+            <div class="events__card">
+              <h2 class="events__cardTitle">Campamento de Verano</h2>
+              <p>
+                Entrenamientos intensivos, actividades recreativas y convivencia
+                deportiva.
+              </p>
+              <p class="events__cardTxtCalendar">
+                <span>📆</span>
+                13 Agosto de 2026
+              </p>
+            </div>
+            <div class="events__card">
+              <h2 class="events__cardTitle">
+                Exhibición de Patinaje Artístico y Velocidad
+              </h2>
+              <p>
+                Presentación especial de estudiantes destacados de la escuela.
+              </p>
+              <p class="events__cardTxtCalendar">
+                <span>📆</span>
+                21 Septiembre de 2026
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="container footer__container">
+        <div class="footer__texts">
+          <h3>Roller Speed</h3>
+          <p>&copy; 2026 Todos los derechos reservados</p>
+        </div>
+        <ul class="footer__list">
+          <li>Términos y Condiciones</li>
+          <li>Política de Privacidad</li>
+          <li>Licencia</li>
+          <li>Política de Cookies</li>
         </ul>
-      </nav>
-    </header>
-    <main></main>
+      </div>
+    </footer>
   </body>
 </html>

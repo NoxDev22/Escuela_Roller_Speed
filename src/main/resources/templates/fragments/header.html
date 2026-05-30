@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <header th:fragment="header" class="header">
+      <nav class="navbar">
+        <ul class="navbar__list">
+          <li class="navbar__li">
+            <a class="navbar-brand" th:href="@{/usuarios}"> Usuarios </a>
+          </li>
+          <li class="navbar__li">
+            <a class="navbar-brand" th:href="@{/grupos}"> Grupos </a>
+          </li>
+        </ul>
+        <div class="">
+          <a th:href="@{/}">Cerrar Sesión</a>
+        </div>
+      </nav>
+    </header>
+  </body>
+</html>
