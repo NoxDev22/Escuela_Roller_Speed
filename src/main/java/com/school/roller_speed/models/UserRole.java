@@ -23,8 +23,7 @@ public class UserRole {
         2 = Docente
         3 = Estudiante
         """,
-        example = "1",
-        allowableValues = {"1", "2", "3"}
+        example = "1"
     )
 
     @Column(name = "rol_id")

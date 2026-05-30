@@ -1,70 +1,91 @@
-<!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RollerSpeed | Iniciar sesión</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-</head>
-<body>
-<div class="page-layout">
-    <section class="hero-panel">
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{./css/login.css}" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Iniciar sesión</title>
+  </head>
+  <body>
+    <main class="page-layout">
+      <section class="hero-panel">
         <div class="hero-content">
-            <div class="hero-top">
-                <div class="hero-brand">RollerSpeed</div>
-                <p class="hero-tagline">Academia de patinaje de Elite</p>
-            </div>
-
-            <div class="hero-middle">
-                <h1>Domina el <span>movimiento</span>.</h1>
-                <p>Formando a los campeones del mañana con técnica, disciplina y la pasión del patinaje profesional.</p>
-            </div>
+          <div class="hero-top">
+            <div class="hero-brand">RollerSpeed</div>
+            <p class="hero-tagline">Academia de patinaje de Elite</p>
+          </div>
+          <div class="hero-middle">
+            <h1>Domina el <span>movimiento</span>.</h1>
+            <p>
+              Formando a los campeones del mañana con técnica, disciplina y la
+              pasión del patinaje profesional.
+            </p>
+          </div>
         </div>
-    </section>
-
-    <section class="login-panel">
+      </section>
+      <section class="login-panel">
         <div class="login-card">
-            <div class="login-header">
-                <h1>Bienvenido</h1>
-                <p class="login-description">Ingresa a tu cuenta de RollerSpeed</p>
-            </div>
+          <div class="login-header">
+            <h1>Bienvenido</h1>
+            <p class="login-description">Ingresa a tu cuenta de RollerSpeed</p>
+          </div>
 
-            <div class="alert" th:if="${param.error}">
-                Usuario o contraseña incorrectos. Intenta de nuevo.
-            </div>
-            <div class="alert alert-success" th:if="${param.logout}">
-                Has cerrado sesión correctamente.
-            </div>
+          <div class="alert" th:if="${param.error}">
+            Usuario o contraseña incorrectos. Intenta de nuevo.
+          </div>
+          <div class="alert alert-success" th:if="${param.logout}">
+            Has cerrado sesión correctamente.
+          </div>
 
-            <form th:action="@{/login}" method="post" class="login-form">
-                <label class="field">
-                    <span class="field-title field-email">Usuario</span>
-                    <input type="text" name="username" placeholder="usuario" required>
-                </label>
-                <label class="field">
-                    <span class="field-title field-password">Contraseña</span>
-                    <div class="password-wrap">
-                        <input type="password" name="password" placeholder="Contraseña" required>
-                        <button type="button" id="toggle-password" class="eye-btn" aria-label="Mostrar contraseña">👁️</button>
-                    </div>
-                </label>
-                <div class="form-row">
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="remember">
-                        guardarme
-                    </label>
-                    <a href="#" class="link-small">¿Olvidaste tu contraseña?</a>
-                </div>
-                <button type="submit" class="primary-button">Iniciar sesión</button>
-            </form>
-
-            <div class="login-footer">
-                <p>¿Nuevo en la academia?</p>
-                <a href="#" class="secondary-button">Registrar estudiante</a>
+          <form th:action="@{/login}" method="post" class="login-form">
+            <label class="field">
+              <span class="field-title field-email">Usuario</span>
+              <input
+                type="text"
+                name="username"
+                placeholder="usuario"
+                required
+              />
+            </label>
+            <label class="field">
+              <span class="field-title field-password">Contraseña</span>
+              <div class="password-wrap">
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Contraseña"
+                  required
+                />
+                <button
+                  type="button"
+                  id="toggle-password"
+                  class="eye-btn"
+                  aria-label="Mostrar contraseña"
+                >
+                  👁️
+                </button>
+              </div>
+            </label>
+            <div class="form-row">
+              <label class="checkbox-label">
+                <input type="checkbox" name="remember" />
+                guardarme
+              </label>
+              <a href="#" class="link-small">¿Olvidaste tu contraseña?</a>
             </div>
+            <button type="submit" class="primary-button">Iniciar sesión</button>
+          </form>
+
+          <div class="login-footer">
+            <p>¿Nuevo en la academia?</p>
+            <a href="#" class="secondary-button">Registrar estudiante</a>
+          </div>
         </div>
-    </section>
-</div>
-</body>
+      </section>
+    </main>
+  </body>
 </html>

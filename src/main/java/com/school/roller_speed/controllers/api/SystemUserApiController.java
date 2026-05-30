@@ -48,9 +48,7 @@ public class SystemUserApiController {
 
     @GetMapping
     public List<SystemUser> listarUsuarios() {
-
         return userService.listarUsuarios();
-
     }
 
     // BUSCAR POR ID
@@ -84,7 +82,6 @@ public class SystemUserApiController {
     }
 
     // CREAR USUARIO
-
     @Operation(
         summary = "Crear nuevo usuario",
         description = "Registra un nuevo usuario en el sistema Roller Speed"
@@ -147,22 +144,16 @@ public class SystemUserApiController {
 
             @Valid @RequestBody SystemUser usuario
     ) {
-
         usuario.setUserId(id);
-
         userService.guardarUsuario(usuario);
-
         return usuario;
-
     }
 
     // ELIMINAR USUARIO
-
     @Operation(
         summary = "Eliminar usuario",
         description = "Elimina un usuario del sistema mediante su ID"
     )
-
     @ApiResponses(value = {
 
         @ApiResponse(

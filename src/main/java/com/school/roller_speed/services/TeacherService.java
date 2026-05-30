@@ -3,51 +3,44 @@ package com.school.roller_speed.services;
 import com.school.roller_speed.models.Teacher;
 import com.school.roller_speed.repositories.TeacherRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 @Service
 public class TeacherService {
-
-    @Autowired
-    private TeacherRepository teacherRepository;
-
-    // LISTAR DOCENTES
-
-    public List<Teacher> listarDocentes() {
-
-        return teacherRepository.findAll();
-
+    private final TeacherRepository teacherRepository;
+    public TeacherService(TeacherRepository teacherRepository) {
+        this.teacherRepository = teacherRepository;
     }
-
-    // BUSCAR POR ID
-
-    public Teacher buscarPorId(Long id) {
-
+    //===========================================================
+    //Obteniendo el numero de entrenadores registrados
+    public long getTotalTeachers() {
+        return teacherRepository.count();
+    }
+    //===========================================================
+    // Obteniendo lista de todos los entrenadores registrados
+    public List<Teacher> getAllTeachers() {
+    return teacherRepository.findAll();
+    }
+    //===========================================================
+     // Obteniendo un docente por su ID
+    public Teacher getTeacherById(Long id) {
         Optional<Teacher> optional =
                 teacherRepository.findById(id);
-
         return optional.orElse(null);
 
     }
-
-    // GUARDAR DOCENTE
-
-    public Teacher guardarDocente(Teacher teacher) {
-
+    //===========================================================
+    // Guardando un docente
+    public Teacher saveTeacher(Teacher teacher) {
         return teacherRepository.save(teacher);
-
     }
-
-    // ELIMINAR DOCENTE
-
-    public void eliminarDocente(Long id) {
-
+    //===========================================================
+    // Eliminando un docente
+    public void deleteTeacher(Long id) {
         teacherRepository.deleteById(id);
 
     }
-
 }

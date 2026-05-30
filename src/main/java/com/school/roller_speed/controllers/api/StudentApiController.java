@@ -27,70 +27,55 @@ public class StudentApiController {
     private StudentService studentService;
 
     // LISTAR TODOS
-
     @Operation(summary = "Listar todos los estudiantes")
-
     @GetMapping
     public List<Student> listarEstudiantes() {
-
-        return studentService.listarEstudiantes();
+        return studentService.getAllStudents();
 
     }
 
     // BUSCAR POR ID
 
     @Operation(summary = "Buscar estudiante por ID")
-
     @GetMapping("/{id}")
     public Student buscarPorId(
             @PathVariable Long id
     ) {
-
-        return studentService.buscarPorId(id);
-
+        return studentService.getStudentById(id);
     }
 
     // CREAR ESTUDIANTE
-
     @Operation(summary = "Crear nuevo estudiante")
 
     @PostMapping
     public Student crearEstudiante(
             @Valid @RequestBody Student student
     ) {
-
-        return studentService.guardarEstudiante(student);
-
+        return studentService.saveStudent(student);
     }
 
     // ACTUALIZAR ESTUDIANTE
 
     @Operation(summary = "Actualizar estudiante")
-
     @PutMapping("/{id}")
     public Student actualizarEstudiante(
             @PathVariable Long id,
 
             @Valid @RequestBody Student student
     ) {
-
         student.setStudentId(id);
-
-        return studentService.guardarEstudiante(student);
+        return studentService.saveStudent(student);
 
     }
 
     // ELIMINAR ESTUDIANTE
-
     @Operation(summary = "Eliminar estudiante")
 
     @DeleteMapping("/{id}")
     public String eliminarEstudiante(
             @PathVariable Long id
     ) {
-
-        studentService.eliminarEstudiante(id);
-
+        studentService.deleteStudent(id);
         return "Estudiante eliminado correctamente";
 
     }

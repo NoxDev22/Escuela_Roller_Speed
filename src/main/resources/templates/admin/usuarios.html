@@ -1,237 +1,120 @@
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-
-<head>
-
-    <meta charset="UTF-8">
-
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" th:href="@{./css/usuarios.css}" />
+    <link rel="stylesheet" th:href="@{./css/header.css}" />
     <title>Usuarios</title>
-
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-
-    <style>
-
-    </style>
-
-</head>
-
-<body>
-
-<div class="navbar">
-
-
-    <a th:href="@{/usuarios}">
-        Usuarios
-    </a>
-
-</div>
-
-<div class="container">
-
-    
-
-        <h1>Panel Principal Administrador</h1>
-
-        <p>
-            Bienvenido al sistema administrativo de Roller Speed.
-        </p>
-
-
-    <a
-        th:href="@{/usuarios/nuevo}"
-        class="btn btn-nuevo">
-
-        + Nuevo Usuario
-
-    </a>
-
-   
-
-    <table>
-
-    
-
+  </head>
+  <body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    <div class="container">
+      <h1>Panel Principal Administrador</h1>
+      <p>Bienvenido al sistema administrativo de Roller Speed.</p>
+      <div class="">
+        <a th:href="@{/usuarios/nuevo}" class="btn btn-nuevo">
+          + Nuevo Usuario
+        </a>
+        <a th:href="@{/entrenador/agregar}" class="btn btn-nuevo">
+          + Nuevo Entrenador
+        </a>
+        <a th:href="@{/estudiante/agregar}" class="btn btn-nuevo">
+          + Nuevo Estudiante
+        </a>
+      </div>
+      <table>
         <thead>
-
-        <tr>
-
+          <tr>
             <th>ID</th>
-
             <th>Usuario</th>
-
             <th>Rol</th>
-
             <th>Estado de Asignación</th>
-
             <th>Acciones</th>
-
-        </tr>
-
+          </tr>
         </thead>
-
         <tbody>
-
-        <tr th:each="usuario : ${usuarios}">
-
+          <tr th:each="usuario : ${usuarios}">
             <td th:text="${usuario.userId}"></td>
-
             <td th:text="${usuario.userName}"></td>
-
             <td th:text="${usuario.role.rolName}"></td>
-
             <td>
-                <span
-
+              <span
                 th:text="${usuario.userAssigned ? 'Asignado' : 'Inactivo'}"
-                th:classappend="${usuario.userAssigned} ? 'estado-activo' : 'estado-inactivo'">
-
-                </span>
+                th:classappend="${usuario.userAssigned} ? 'estado-activo' : 'estado-inactivo'"
+              >
+              </span>
             </td>
-
             <td class="acciones">
+              <a
+                th:href="@{/usuarios/detalle/{id}(id=${usuario.userId})}"
+                class="btn btn-ver"
+              >
+                Detalles
+              </a>
 
-                <a
-                    th:href="@{/usuarios/detalle/{id}(id=${usuario.userId})}"
-                    class="btn btn-ver">
-
-                    Ver
-
-                </a>
-
-                <a
-                    th:href="@{/usuarios/editar/{id}(id=${usuario.userId})}"
-                    class="btn btn-editar">
-
-                    Editar
-
-                </a>
-
-                <button
-                    type="button"
-                    class="btn btn-eliminar"
-                    th:attr="data-url=@{/usuarios/eliminar/{id}(id=${usuario.userId})}"
-                    onclick="abrirModal(this)">
-
-                    Eliminar
-
-                </button>
-
+              <a
+                th:href="@{/usuarios/editar/{id}(id=${usuario.userId})}"
+                class="btn btn-editar"
+              >
+                Editar
+              </a>
+              <button
+                type="button"
+                class="btn btn-eliminar"
+                th:attr="data-url=@{/usuarios/eliminar/{id}(id=${usuario.userId})}"
+                onclick="abrirModal(this)"
+              >
+                Eliminar
+              </button>
             </td>
-
-        </tr>
-
+          </tr>
         </tbody>
-
-    </table>
-
-</div>
-
-            <div
-    th:if="${mensajeExito}"
-    id="popup-exito"
-    class="popup-overlay">
-
-    <div class="popup-card">
-
+      </table>
+    </div>
+    <!-- Código para modales de confirmación -->
+    <div th:if="${mensajeExito}" id="popup-exito" class="popup-overlay">
+      <div class="popup-card">
         <div class="check-container">
-
-            <div class="check-circle">
-
-                ✓
-
-            </div>
-
+          <div class="check-circle">✓</div>
         </div>
-
         <h2 th:text="${mensajeExito}"></h2>
-
+      </div>
     </div>
-
-</div>
-
-<script>
-
-    const popup =
-        document.getElementById("popup-exito");
-
-    if (popup) {
-
+    <script>
+      const popup = document.getElementById("popup-exito");
+      if (popup) {
         setTimeout(() => {
-
-            popup.classList.add("ocultar");
-
-        }, 2000);
-
-    }
-
-</script>
-
-<!-- MODAL ELIMINAR -->
-
-<div id="modalEliminar" class="modal-overlay">
-
-    <div class="modal-card">
-
-        <h2>
-            ¿Está seguro de eliminar este usuario?
-        </h2>
-
-        <p>
-            Esta acción no se puede deshacer.
-        </p>
-
+          popup.classList.add("ocultar");
+        }, 1000);
+      }
+    </script>
+    <!-- MODAL ELIMINAR -->
+    <div id="modalEliminar" class="modal-overlay">
+      <div class="modal-card">
+        <h2>¿Está seguro de eliminar este usuario?</h2>
+        <p>Esta acción no se puede deshacer.</p>
         <div class="modal-buttons">
+          <a id="btnConfirmarEliminar" href="#" class="btn btn-confirmar">
+            Eliminar usuario
+          </a>
 
-            <a
-                id="btnConfirmarEliminar"
-                href="#"
-                class="btn btn-confirmar">
-
-                Eliminar usuario
-
-            </a>
-
-            <button
-                class="btn btn-cancelar-modal"
-                onclick="cerrarModal()">
-
-                Cancelar
-
-            </button>
-
+          <button class="btn btn-cancelar-modal" onclick="cerrarModal()">
+            Cancelar
+          </button>
         </div>
-
+      </div>
     </div>
-
-</div>
-
-<script>
-
-    function abrirModal(button){
-
-        const url =
-            button.getAttribute("data-url");
-
-        document.getElementById(
-            "btnConfirmarEliminar"
-        ).href = url;
-
-        document.getElementById(
-            "modalEliminar"
-        ).classList.add("mostrar-modal");
-
-    }
-
-    function cerrarModal(){
-
-        document.getElementById(
-            "modalEliminar"
-        ).classList.remove("mostrar-modal");
-
-    }
-
-</script>
-
-</body>
-
+    <script>
+      function abrirModal(button) {
+        const url = button.getAttribute("data-url");
+        document.getElementById("btnConfirmarEliminar").href = url;
+        document.getElementById("modalEliminar").classList.add("mostrar-modal");
+      }
+      function cerrarModal() {
+        document
+          .getElementById("modalEliminar")
+          .classList.remove("mostrar-modal");
+      }
+    </script>
+  </body>
 </html>

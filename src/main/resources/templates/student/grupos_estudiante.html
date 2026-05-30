@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{./css/login.css}" />
+    <title>Vista de Estudiantes</title>
+  </head>
+  <body>
+    <main class="student-main">
+      <div>
+        <h1 id="titulo-central">grupos asignados</h1>
+        <p id="subtitulo-central">
+          Aquí encontraras información para ver tu grupo, horario y docente
+          asignado.
+        </p>
+      </div>
+      <div id="contenedor-bloques">
+        <section class="top-cards">
+          <article class="top-card">
+            <div class="top-card-band top-card-blue">
+              <div class="band-content">
+                <div class="top-card-meta">PATINADORES DE ELITE</div>
+                <div class="top-card-label">PROFESIONALES</div>
+              </div>
+            </div>
+            <div class="top-card-body"></div>
+          </article>
+
+          <article class="top-card">
+            <div class="top-card-band top-card-red">
+              <div class="band-content">
+                <div class="top-card-meta">PATINADORES JUNIOR A</div>
+                <div class="top-card-label">PRINCIPIANTES</div>
+              </div>
+            </div>
+            <div class="top-card-body"></div>
+          </article>
+
+          <article class="top-card">
+            <div class="top-card-band top-card-grey">
+              <div class="band-content">
+                <div class="top-card-meta">PATINADORES INTERMEDIOS</div>
+                <div class="top-card-label">INTERMEDIO</div>
+              </div>
+            </div>
+            <div class="top-card-body"></div>
+          </article>
+        </section>
+
+        <section class="student-panels">
+          <article class="student-panel card-blue">
+            <div class="panel-header">
+              <span>Estudiante</span>
+              <strong
+                id="data-grupo-nombre"
+                th:text="${studentInfo.studentName}"
+              ></strong>
+            </div>
+            <p id="data-grupo-desc" th:text="${grupoDescripcion}"></p>
+          </article>
+          <article class="student-panel card-blue">
+            <div class="panel-header">
+              <span>Grupo</span>
+              <strong
+                id="data-grupo-nombre"
+                th:text="${studentInfo.groupName}"
+              ></strong>
+            </div>
+            <p id="data-grupo-desc" th:text="${grupoDescripcion}"></p>
+          </article>
+          <article class="student-panel card-blue">
+            <div class="panel-header">
+              <span>Nivel Grupo</span>
+              <strong
+                id="data-grupo-nombre"
+                th:text="${studentInfo.groupLevel}"
+              ></strong>
+            </div>
+            <p id="data-grupo-desc" th:text="${grupoDescripcion}"></p>
+          </article>
+
+          <article class="student-panel card-red">
+            <div class="panel-header">
+              <span>Horario</span>
+              <strong th:text="${studentInfo.schedule}"></strong>
+            </div>
+          </article>
+
+          <article class="student-panel card-grey">
+            <div class="panel-header">
+              <span>Docente</span>
+              <strong
+                id="data-docente-nombre"
+                th:text="${studentInfo.teacherName}"
+              ></strong>
+            </div>
+          </article>
+          <article class="student-panel card-grey">
+            <div class="panel-header">
+              <span>Compañeros</span>
+              <ul>
+                <li
+                  th:each="classmate : ${studentInfo.classmates}"
+                  th:text="${classmate}"
+                ></li>
+              </ul>
+            </div>
+          </article>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

@@ -9,12 +9,10 @@ import jakarta.validation.constraints.Size;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "teachers")
+@Table(name = "Teachers")
 
 @Access(AccessType.FIELD)
 
@@ -144,7 +142,10 @@ public class Teacher {
         description = "Usuario asociado al docente"
     )
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {
+    CascadeType.PERSIST,
+    CascadeType.MERGE
+    })
     @JoinColumn(name = "user_id")
     private SystemUser user;
 

@@ -12,7 +12,7 @@ import jakarta.validation.constraints.Size;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
-@Table(name = "students")
+@Table(name = "Students")
 
 @Access(AccessType.FIELD)
 
@@ -145,12 +145,12 @@ public class Student {
     private String direction;
 
     @Schema(
-        description = "ID del grupo asignado. 1 = grupo 1, 2 = grupo 2, etc...",
-        example = "1"
+        description = "Grupo asignado al estudiante"
     )
 
-    @Column(name = "group_id")
-    private Long groupId;
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    private ClassGroup group;
 
     @Valid
 
@@ -158,8 +158,10 @@ public class Student {
         description = "Usuario asociado al estudiante"
     )
 
-    @OneToOne(cascade = CascadeType.ALL)
-
+    @OneToOne(cascade = {
+    CascadeType.PERSIST,
+    CascadeType.MERGE
+    })
     @JoinColumn(name = "user_id")
     private SystemUser user;
 
@@ -261,12 +263,12 @@ public class Student {
         this.direction = direction;
     }
 
-    public Long getGroupId() {
-        return groupId;
+    public ClassGroup getGroup() {
+        return group;
     }
 
-    public void setGroupId(Long groupId) {
-        this.groupId = groupId;
+    public void setGroup(ClassGroup group) {
+        this.group = group;
     }
 
     public SystemUser getUser() {

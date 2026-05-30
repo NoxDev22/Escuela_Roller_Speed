@@ -32,65 +32,47 @@ public class TeacherApiController {
 
     @GetMapping
     public List<Teacher> listarDocentes() {
-
-        return teacherService.listarDocentes();
-
+        return teacherService.getAllTeachers();
     }
 
     // BUSCAR POR ID
 
     @Operation(summary = "Buscar docente por ID")
-
     @GetMapping("/{id}")
     public Teacher buscarPorId(
             @PathVariable Long id
     ) {
-
-        return teacherService.buscarPorId(id);
-
+        return teacherService.getTeacherById(id);
     }
 
     // CREAR DOCENTE
-
     @Operation(summary = "Crear nuevo docente")
-
     @PostMapping
     public Teacher crearDocente(
             @Valid @RequestBody Teacher teacher
     ) {
-
-        return teacherService.guardarDocente(teacher);
-
+        return teacherService.saveTeacher(teacher);
     }
 
     // ACTUALIZAR DOCENTE
-
     @Operation(summary = "Actualizar docente")
-
     @PutMapping("/{id}")
     public Teacher actualizarDocente(
             @PathVariable Long id,
-
             @Valid @RequestBody Teacher teacher
     ) {
-
         teacher.setTeacherId(id);
-
-        return teacherService.guardarDocente(teacher);
+        return teacherService.saveTeacher(teacher);
 
     }
 
     // ELIMINAR DOCENTE
-
     @Operation(summary = "Eliminar docente")
-
     @DeleteMapping("/{id}")
     public String eliminarDocente(
             @PathVariable Long id
     ) {
-
-        teacherService.eliminarDocente(id);
-
+        teacherService.deleteTeacher(id);
         return "Docente eliminado correctamente";
 
     }

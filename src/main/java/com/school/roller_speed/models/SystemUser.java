@@ -23,7 +23,7 @@ public class SystemUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     @Schema(
-        description = "ID único del usuario",
+        description = "ID único del usuario. Asignado automaticamente",
         example = "2",
         accessMode = Schema.AccessMode.READ_ONLY
     )
@@ -38,7 +38,7 @@ public class SystemUser {
     @Size(
         min = 1,
         max = 50,
-        message = "El nombre de usuario debe tener entre 4 y 50 caracteres"
+        message = "El nombre de usuario debe tener entre 1 y 50 caracteres"
     )
 
     @Schema(
@@ -79,11 +79,11 @@ public class SystemUser {
     private Boolean userAssigned = false;
 
     @NotNull(
-    message = "El rol es obligatorio"
+        message = "El rol es obligatorio"
     )
 
     @Schema(
-    description = "Rol asignado al usuario"
+        description = "Rol asignado al usuario"
     )
 
     @ManyToOne

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Registro de Estudiante - RollerSpeed</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    primary: "#23284c",
+                    "primary-light": "#3a4175",
+                    "surface-bg": "#f3f4f6",
+                    "surface-card": "#ffffff",
+                    "text-main": "#111827",
+                    "text-muted": "#6b7280",
+                    "error": "#dc2626"
+                },
+                fontFamily: {
+                    sans: ['Inter', 'sans-serif'],
+                }
+            }
+        }
+    }
+</script>
+</head>
+<body class="bg-surface-bg min-h-screen flex items-center justify-center p-6 font-sans">
+
+    <div class="bg-surface-card w-full max-w-4xl rounded-2xl shadow-xl overflow-hidden p-8 border border-gray-100">
+
+        <div class="mb-8">
+            <h2 class="text-3xl font-bold text-primary mb-2">Registro de Estudiante</h2>
+            <p class="text-text-muted">Completa el formulario para registrar un nuevo estudiante en el sistema</p>
+        </div>
+
+        <!-- Notificación de éxito con SweetAlert2 -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script th:if="${param.exito}">
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Registro Exitoso!',
+                    text: 'El estudiante ha sido guardado en la base de datos correctamente.',
+                    confirmButtonColor: '#23284c',
+                    confirmButtonText: 'Aceptar'
+                });
+            });
+        </script>
+
+        <!-- Formulario -->
+        <form th:action="@{/admin/students/save}" th:object="${estudiante}" method="post" class="space-y-6">
+
+            <!-- Primer Nombre / Segundo Nombre -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex flex-col">
+                    <label class="text-sm font-bold text-primary mb-1">Primer Nombre <span class="text-error">*</span></label>
+                    <input th:field="*{firstName}" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-2.5 bg-white border" placeholder="Juan" type="text"/>
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-sm font-bold text-primary mb-1">Segundo Nombre</label>
+                    <input th:field="*{secondName}" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-2.5 bg-white border" placeholder="David" type="text"/>
+                </div>
+            </div>
+
+            <!-- Primer Apellido / Segundo Apellido -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex flex-col">
+                    <label class="text-sm font-bold text-primary mb-1">Primer Apellido <span class="text-error">*</span></label>
+                    <input th:field="*{lastName}" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-2.5 bg-white border" placeholder="Martínez" type="text"/>
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-sm font-bold text-primary mb-1">Segundo Apellido <span class="text-error">*</span></label>
+                    <input th:field="*{secondLastName}" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-2.5 bg-white border" placeholder="Ríos" type="text"/>
+                </div>
+            </div>
+
+            <!-- Tipo Documento / Número Documento -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex flex-col">
+                    <label class="text-sm font-bold text-primary mb-1">Tipo de Documento <span class="text-error">*</span></label>
+                    <select th:field="*{documentType}" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-2.5 bg-white border text-gray-700">
+                        <option value="">-- Seleccione --</option>
+                        <option value="CC">Cédula de Ciudadanía</option>
+                        <option value="TI">Tarjeta de Identidad</option>
+                        <option value="CE">Cédula de Extranjería</option>
+                        <option value="RC">Registro Civil</option>
+                    </select>
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-sm font-bold text-primary mb-1">Número de Documento <span class="text-error">*</span></label>
+                    <input th:field="*{documentNumber}" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-2.5 bg-white border" placeholder="1234567890" type="text"/>
+                </div>
+            </div>
+
+            <!-- Fecha Nacimiento / Teléfono -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex flex-col">
+                    <label class="text-sm font-bold text-primary mb-1">Fecha de Nacimiento <span class="text-error">*</span></label>
+                    <input th:field="*{birthdate}" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-2.5 bg-white border text-gray-700" type="date"/>
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-sm font-bold text-primary mb-1">Teléfono <span class="text-error">*</span></label>
+                    <input th:field="*{phoneNumber}" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-2.5 bg-white border" placeholder="+57 301 1111111" type="tel"/>
+                </div>
+            </div>
+
+            <!-- Nombre Acudiente / Teléfono Acudiente -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex flex-col">
+                    <label class="text-sm font-bold text-primary mb-1">Nombre del Acudiente</label>
+                    <input th:field="*{tutorName}" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-2.5 bg-white border" placeholder="Pedro Martínez" type="text"/>
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-sm font-bold text-primary mb-1">Teléfono del Acudiente</label>
+                    <input th:field="*{tutorPhoneNumber}" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-2.5 bg-white border" placeholder="+57 301 2222222" type="tel"/>
+                </div>
+            </div>
+
+            <!-- Dirección / Grupo -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex flex-col">
+                    <label class="text-sm font-bold text-primary mb-1">Dirección <span class="text-error">*</span></label>
+                    <input th:field="*{direction}" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-2.5 bg-white border" placeholder="Calle 1 #2-3" type="text"/>
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-sm font-bold text-primary mb-1">ID del Grupo</label>
+                    <input th:field="*{groupId}" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-2.5 bg-white border" placeholder="Ej: 1" type="number" min="1"/>
+                </div>
+            </div>
+
+            <!-- Usuario del Sistema -->
+            <div class="flex flex-col">
+                <label class="text-sm font-bold text-primary mb-1">Asignar Usuario del Sistema <span class="text-error">*</span></label>
+                <select th:field="*{user.userId}" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-2.5 bg-white border text-gray-700">
+                    <option value="">-- Seleccione un usuario disponible --</option>
+                    <option th:each="u : ${usuariosDisponibles}"
+                            th:value="${u.userId}"
+                            th:text="${u.userName}"></option>
+                </select>
+            </div>
+
+            <!-- Botones -->
+            <div class="flex flex-col sm:flex-row items-center gap-4 pt-6 border-t border-gray-100">
+                <button type="submit" class="w-full sm:w-auto flex-1 bg-primary hover:bg-primary-light text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-colors duration-200">
+                    Guardar Estudiante
+                </button>
+                <button type="reset" class="w-full sm:w-auto bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-3 px-6 rounded-lg transition-colors duration-200 border border-gray-200">
+                    Limpiar Formulario
+                </button>
+            </div>
+
+            <div class="mt-6 bg-gray-50 border-l-4 border-primary p-4 rounded text-sm text-text-muted">
+                <span class="font-bold text-text-main">Nota:</span> Los campos marcados con <span class="text-error">*</span> son obligatorios. Todos los datos deben ser válidos para completar el registro.
+            </div>
+
+        </form>
+    </div>
+
+</body>
+</html>

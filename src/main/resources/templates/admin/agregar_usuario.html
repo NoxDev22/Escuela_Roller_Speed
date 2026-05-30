@@ -2,28 +2,32 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
+    <title>Nuevo Usuario</title>
     <link rel="stylesheet" th:href="@{/css/usuarios.css}" />
-    <title>Editar Usuario</title>
   </head>
   <body>
     <main class="form-container">
-      <h1>Editar Usuario</h1>
+      <h1>Registrar Usuario</h1>
       <form
-        th:action="@{/usuarios/actualizar}"
+        th:action="@{/usuarios/guardar}"
         th:object="${usuario}"
         method="post"
       >
-        <input type="hidden" th:field="*{userId}" />
-
         <div class="form-group">
           <label>Nombre Usuario</label>
+
           <input type="text" th:field="*{userName}" required />
         </div>
+
         <div class="form-group">
           <label>Contraseña</label>
-          <input type="text" th:field="*{userPassword}" required />
-          <small> La contraseña debe tener entre 4 y 50 caracteres </small>
+
+          <input type="password" th:field="*{userPassword}" required />
+          <small>
+            La contraseña debe tener entre 4 y 50 caracteres
+          </small>
         </div>
+
         <div class="form-group">
           <label>Rol</label>
           <select th:field="*{role}">
@@ -34,15 +38,9 @@
             ></option>
           </select>
         </div>
-        <div class="form-group">
-          <label>Estado de Asignación</label>
-          <select th:field="*{userAssigned}">
-            <option th:value="true">Asignado</option>
-            <option th:value="false">Inactivo</option>
-          </select>
           <div class="form-buttons">
             <button type="submit" class="btn btn-guardar">
-              Actualizar Usuario
+              Guardar Usuario
             </button>
             <a th:href="@{/usuarios}" class="btn btn-cancelar"> Cancelar </a>
           </div>
