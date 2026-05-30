@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "teachers")
+@Table(name = "Teachers")
 @Access(AccessType.FIELD)
 public class Teacher {
 
@@ -48,7 +48,6 @@ public class Teacher {
     private SystemUser user;
 
     // GETTERS Y SETTERS
-
     public Long getTeacherId() {
         return teacherId;
     }

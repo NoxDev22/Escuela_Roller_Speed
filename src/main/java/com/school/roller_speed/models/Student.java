@@ -1,10 +1,12 @@
 package com.school.roller_speed.models;
 
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder.In;
+
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "students")
+@Table(name = "Students")
 @Access(AccessType.FIELD)
 public class Student {
 
@@ -46,15 +48,15 @@ public class Student {
     @Column(name = "direction")
     private String direction;
 
-    @Column(name = "group_id")
-    private Long groupId;
-
     @OneToOne
     @JoinColumn(name = "user_id")
     private SystemUser user;
 
-    // GETTERS Y SETTERS
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    private ClassGroup group;
 
+    // GETTERS Y SETTERS
     public Long getStudentId() {
         return studentId;
     }
@@ -151,12 +153,12 @@ public class Student {
         this.direction = direction;
     }
 
-    public Long getGroupId() {
-        return groupId;
+    public ClassGroup getGroup() {
+        return group;
     }
 
-    public void setGroupId(Long groupId) {
-        this.groupId = groupId;
+    public void setGroup(ClassGroup group) {
+        this.group = group;
     }
 
     public SystemUser getUser() {

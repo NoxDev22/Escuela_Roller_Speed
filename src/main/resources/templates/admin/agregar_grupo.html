@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/agregarGrupo.css}" />
+    <title>Agregar Grupo</title>
+  </head>
+  <body>
+    <main class="addSchedule container">
+      <form
+        th:action="@{/grupos/guardar}"
+        th:object="${group}"
+        method="post"
+        class="scheduleForm"
+      >
+        <div class="scheduleForm__texts">
+          <span></span>
+          <h1>Agregar Grupo</h1>
+          <p>
+            Completa el formulario para registrar un nuevo grupo al sistema.
+          </p>
+        </div>
+        <div class="scheduleForm__group">
+          <label for="">Nombre del grupo:</label>
+          <input
+            type="text"
+            th:field="*{groupName}"
+            placeholder="Speed Demons"
+            class="scheduleForm__groupInput"
+          />
+        </div>
+        <div class="scheduleForm__group">
+          <label for="level">Nivel del grupo:</label>
+          <select
+            id="level"
+            th:field="*{groupLevel}"
+            class="scheduleForm__formSelect"
+          >
+            <option value="">Seleccionar</option>
+            <option value="PRO">Avanzado</option>
+            <option value="INTERMEDIATE">Intermedio</option>
+            <option value="BEGINNER">Aprendiz</option>
+          </select>
+        </div>
+        <div class="scheduleForm__group">
+          <label for="coach">Entrenador:</label>
+          <select
+            id="coach"
+            th:field="*{teacher.teacherId}"
+            class="scheduleForm__formSelect"
+            required
+          >
+            <option value="">Seleccionar</option>
+            <option
+              th:each="teacher : ${teachers}"
+              th:value="${teacher.teacherId}"
+            >
+              <span
+                th:text="${teacher.firstName +' '+ teacher.lastName}"
+              ></span>
+            </option>
+          </select>
+        </div>
+        <div class="scheduleForm__group">
+          <label for="schedule">Horario de clases:</label>
+          <select
+            id="schedule"
+            th:field="*{schedule.scheduleId}"
+            class="scheduleForm__formSelect"
+          >
+            <option value="">Seleccionar</option>
+            <option
+              th:each="schedule : ${schedules}"
+              th:value="${schedule.scheduleId}"
+            >
+              <span th:text="${schedule.scheduleClass}"></span>
+            </option>
+          </select>
+        </div>
+        <div class="scheduleForm__groupButtons">
+          <button type="submit" class="scheduleForm__groupButton">
+            Agregar
+          </button>
+          <a th:href="@{/grupos}" class="scheduleForm__groupButton">Cancelar</a>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>

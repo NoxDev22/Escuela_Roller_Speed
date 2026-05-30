@@ -1,44 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-
-<head>
-
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
 
     <title>Detalle Usuario</title>
 
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/usuarios.css}" />
+  </head>
 
-</head>
+  <body>
+    <div class="container">
+      <h1>Detalle del Usuario</h1>
 
-<body>
-
-<div class="container">
-
-    <h1>Detalle del Usuario</h1>
-
-    <!-- TABLA DATOS USUARIO -->
-
-    <table>
-
+      <!-- TABLA DATOS USUARIO -->
+      <table>
         <thead>
-
-        <tr>
-
+          <tr>
             <th>ID Usuario</th>
             <th>Nombre Usuario</th>
             <th>Contraseña</th>
             <th>Rol</th>
             <th>Estado</th>
-
-        </tr>
-
+          </tr>
         </thead>
-
         <tbody>
-
-        <tr>
-
+          <tr>
             <td th:text="${usuario.userId}"></td>
 
             <td th:text="${usuario.userName}"></td>
@@ -47,158 +33,122 @@
 
             <td th:text="${usuario.role.rolName}"></td>
 
-            <td th:text="${usuario.userState ? 'Activo' : 'Inactivo'}"></td>
-
-        </tr>
-
+            <td th:text="${usuario.userAssigned ? 'Activo' : 'Inactivo'}"></td>
+          </tr>
         </tbody>
+      </table>
 
-    </table>
+      <br /><br />
 
-    <br><br>
+      <!-- TABLA DOCENTE -->
 
-    <!-- TABLA DOCENTE -->
-
-    <div th:if="${teacher != null}">
-
+      <div th:if="${teacher != null}">
         <h1>Información del Docente</h1>
 
         <table>
-
-            <thead>
-
+          <thead>
             <tr>
-
-                <th>ID Docente</th>
-                <th>Primer Nombre</th>
-                <th>Segundo Nombre</th>
-                <th>Primer Apellido</th>
-                <th>Segundo Apellido</th>
-                <th>No Documento</th>
-                <th>Fecha Nacimiento</th>
-                <th>Correo</th>
-                <th>Teléfono</th>
-                <th>Título</th>
-                <th>Dirección</th>
-
+              <th>ID Docente</th>
+              <th>Primer Nombre</th>
+              <th>Segundo Nombre</th>
+              <th>Primer Apellido</th>
+              <th>Segundo Apellido</th>
+              <th>No Documento</th>
+              <th>Fecha Nacimiento</th>
+              <th>Correo</th>
+              <th>Teléfono</th>
+              <th>Título</th>
+              <th>Dirección</th>
             </tr>
+          </thead>
 
-            </thead>
-
-            <tbody>
-
+          <tbody>
             <tr>
+              <td th:text="${teacher.teacherId}"></td>
 
-                <td th:text="${teacher.teacherId}"></td>
+              <td th:text="${teacher.firstName}"></td>
 
-                <td th:text="${teacher.firstName}"></td>
+              <td th:text="${teacher.secondName}"></td>
 
-                <td th:text="${teacher.secondName}"></td>
+              <td th:text="${teacher.lastName}"></td>
 
-                <td th:text="${teacher.lastName}"></td>
+              <td th:text="${teacher.secondLastName}"></td>
 
-                <td th:text="${teacher.secondLastName}"></td>
+              <td th:text="${teacher.documentNumber}"></td>
 
-                <td th:text="${teacher.documentNumber}"></td>
+              <td th:text="${teacher.birthdate}"></td>
 
-                <td th:text="${teacher.birthdate}"></td>
+              <td th:text="${teacher.gmail}"></td>
 
-                <td th:text="${teacher.gmail}"></td>
+              <td th:text="${teacher.phoneNumber}"></td>
 
-                <td th:text="${teacher.phoneNumber}"></td>
+              <td th:text="${teacher.academicTitle}"></td>
 
-                <td th:text="${teacher.academicTitle}"></td>
-
-                <td th:text="${teacher.direction}"></td>
-
+              <td th:text="${teacher.direction}"></td>
             </tr>
-
-            </tbody>
-
+          </tbody>
         </table>
+      </div>
 
-    </div>
+      <!-- TABLA ESTUDIANTE -->
 
-    <!-- TABLA ESTUDIANTE -->
-
-    <div th:if="${student != null}">
-
+      <div th:if="${student != null}">
         <h1>Información del Estudiante</h1>
 
         <table>
-
-            <thead>
-
+          <thead>
             <tr>
-
-                <th>ID Estudiante</th>
-                <th>Primer Nombre</th>
-                <th>Segundo Nombre</th>
-                <th>Primer Apellido</th>
-                <th>Segundo Apellido</th>
-                <th>Tipo Documento</th>
-                <th>No Documento</th>
-                <th>Fecha Nacimiento</th>
-                <th>Teléfono</th>
-                <th>Nombre Tutor</th>
-                <th>Tel Tutor</th>
-                <th>Dirección</th>
-                <th>ID Grupo</th>
-
+              <th>ID Estudiante</th>
+              <th>Primer Nombre</th>
+              <th>Segundo Nombre</th>
+              <th>Primer Apellido</th>
+              <th>Segundo Apellido</th>
+              <th>Tipo Documento</th>
+              <th>No Documento</th>
+              <th>Fecha Nacimiento</th>
+              <th>Teléfono</th>
+              <th>Nombre Tutor</th>
+              <th>Tel Tutor</th>
+              <th>Dirección</th>
+              <th>ID Grupo</th>
             </tr>
+          </thead>
 
-            </thead>
-
-            <tbody>
-
+          <tbody>
             <tr>
+              <td th:text="${student.studentId}"></td>
 
-                <td th:text="${student.studentId}"></td>
+              <td th:text="${student.firstName}"></td>
 
-                <td th:text="${student.firstName}"></td>
+              <td th:text="${student.secondName}"></td>
 
-                <td th:text="${student.secondName}"></td>
+              <td th:text="${student.lastName}"></td>
 
-                <td th:text="${student.lastName}"></td>
+              <td th:text="${student.secondLastName}"></td>
 
-                <td th:text="${student.secondLastName}"></td>
+              <td th:text="${student.documentType}"></td>
 
-                <td th:text="${student.documentType}"></td>
+              <td th:text="${student.documentNumber}"></td>
 
-                <td th:text="${student.documentNumber}"></td>
+              <td th:text="${student.birthdate}"></td>
 
-                <td th:text="${student.birthdate}"></td>
+              <td th:text="${student.phoneNumber}"></td>
 
-                <td th:text="${student.phoneNumber}"></td>
+              <td th:text="${student.tutorName}"></td>
 
-                <td th:text="${student.tutorName}"></td>
+              <td th:text="${student.tutorPhoneNumber}"></td>
 
-                <td th:text="${student.tutorPhoneNumber}"></td>
+              <td th:text="${student.direction}"></td>
 
-                <td th:text="${student.direction}"></td>
-
-                <td th:text="${student.groupId}"></td>
-
+              <td th:text="${student.group}"></td>
             </tr>
-
-            </tbody>
-
+          </tbody>
         </table>
+      </div>
 
+      <br />
+
+      <a th:href="@{/usuarios}" class="btn btn-editar"> Volver </a>
     </div>
-
-    <br>
-
-    <a
-        th:href="@{/usuarios}"
-        class="btn btn-editar">
-
-        Volver
-
-    </a>
-
-</div>
-
-</body>
-
+  </body>
 </html>
