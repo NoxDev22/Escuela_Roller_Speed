@@ -27,7 +27,7 @@ public class TeacherController {
         model.addAttribute("docente", new Teacher());
         
         // Find users that are not yet assigned to any teacher
-        List<SystemUser> disponibles = systemUserRepository.findAvailableUsers();
+        List<SystemUser> disponibles = systemUserRepository.findAvailableTeachers();
         model.addAttribute("usuariosDisponibles", disponibles);
         
         return "admin/agregar_entrenador";

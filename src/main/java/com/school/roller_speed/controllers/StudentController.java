@@ -33,9 +33,12 @@ public class StudentController {
     /*==============================================*/
     @GetMapping("/estudiante/agregar")
     public String mostrarFormulario(Model model) {
-        model.addAttribute("estudiante", new Student());
+        Student newStudent = new Student();
+        newStudent.setUser(new SystemUser());
+        newStudent.setGroup(new com.school.roller_speed.models.ClassGroup());
+        model.addAttribute("estudiante", newStudent);
 
-        List<SystemUser> disponibles = systemUserRepository.findAvailableUsers();
+        List<SystemUser> disponibles = systemUserRepository.findAvailableStudents();
         model.addAttribute("usuariosDisponibles", disponibles);
 
         return "admin/agregar_estudiante";
@@ -53,7 +56,7 @@ public class StudentController {
         return "/student/grupos_estudiante";
     }
     /*==============================================*/
-    @PostMapping("estudiantes/guardar")
+    @PostMapping("/estudiante/guardar")
     public String guardarEstudiante(@ModelAttribute("estudiante") Student student) {
         if (student.getUser() != null && student.getUser().getUserId() != null) {
             systemUserRepository.findById(student.getUser().getUserId()).ifPresent(u -> {
