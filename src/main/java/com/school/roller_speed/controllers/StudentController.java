@@ -57,7 +57,7 @@ public class StudentController {
         return "/student/grupos_estudiante";
     }
     /*==============================================*/
-    @PostMapping("estudiantes/guardar")
+    @PostMapping("/estudiante/guardar")
     public String guardarEstudiante(@ModelAttribute("estudiante") Student student) {
         if (student.getUser() != null && student.getUser().getUserId() != null) {
             systemUserRepository.findById(student.getUser().getUserId()).ifPresent(u -> {

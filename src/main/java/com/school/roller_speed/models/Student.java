@@ -165,8 +165,11 @@ public class Student {
     @JoinColumn(name = "user_id")
     private SystemUser user;
 
-    // GETTERS Y SETTERS
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    private ClassGroup group;
 
+    // GETTERS Y SETTERS
     public Long getStudentId() {
         return studentId;
     }

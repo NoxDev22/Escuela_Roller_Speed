@@ -82,7 +82,7 @@ public String verDetalleUsuario(
     // SI ES DOCENTE
     if (rol.equalsIgnoreCase("Docente")) {
 
-        Teacher teacher = teacherRepository.findByUser_UserId(id);
+        Teacher teacher = teacherRepository.findByUser_UserId(id).orElseThrow(() -> new RuntimeException("Docente no encontrado"+ id));
 
         if (teacher != null) {
             model.addAttribute("teacher", teacher);
@@ -92,8 +92,8 @@ public String verDetalleUsuario(
     // SI ES ESTUDIANTE
     if (rol.equalsIgnoreCase("Estudiante")) {
 
-        studentRepository.findByUser_UserId(id)
-                .ifPresent(student -> model.addAttribute("student", student));
+        studentRepository.findByUser_UserId(id).orElseThrow(() -> new RuntimeException("Estudiante no encontrado"+ id)).ifPresent(student -> model.addAttribute("student", student));
+                
     }
 
         return "admin/detalle_usuario";

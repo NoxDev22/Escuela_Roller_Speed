@@ -150,7 +150,6 @@ public class Teacher {
     private SystemUser user;
 
     // GETTERS Y SETTERS
-
     public Long getTeacherId() {
         return teacherId;
     }

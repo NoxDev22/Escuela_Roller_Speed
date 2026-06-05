@@ -58,7 +58,7 @@ public List<SystemUser> listarUsuarios() {
 public void eliminarUsuario(Long id) {
 
     // Buscar estudiante asociado
-    studentRepository.findByUser_UserId(id)
+    studentRepository.findByUser_UserId(id).orElseThrow(() -> new RuntimeException(Usuario no encontrado"+ id))
             .ifPresent(student -> {
 
                 // Quitar relación con usuario
@@ -71,7 +71,7 @@ public void eliminarUsuario(Long id) {
 
     // Buscar docente asociado
     Teacher teacher =
-            teacherRepository.findByUser_UserId(id);
+            teacherRepository.findByUser_UserId(id).orElseThrow(() -> new RuntimeException("Entrenador no encontrado "));
 
     if (teacher != null) {
 
@@ -87,7 +87,6 @@ public void eliminarUsuario(Long id) {
     userRepository.deleteById(id);
 
     }
-
 }
 
 

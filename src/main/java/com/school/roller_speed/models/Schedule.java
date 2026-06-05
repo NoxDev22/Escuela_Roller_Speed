@@ -39,6 +39,17 @@ public class Schedule {
         return scheduleId;
     }
 
+    @Column(name = "schedule_id")
+    private Integer scheduleId;
+
+    @Column(name = "schedule_class")
+    private String scheduleClass;
+
+
+    // GETTERS Y SETTERS
+    public Integer getScheduleId() {
+        return scheduleId;
+    }
     public void setScheduleId(Integer scheduleId) {
         this.scheduleId = scheduleId;
     }
