@@ -11,10 +11,4 @@ public interface SystemUserRepository
         extends JpaRepository<SystemUser, Long> {
    @Query("SELECT u FROM SystemUser u WHERE u.userAssigned = false")
     List<SystemUser> findAvailableUsers();
-
-   @Query("SELECT u FROM SystemUser u WHERE u.userAssigned = false AND u.role.rolName = 'Docente'")
-    List<SystemUser> findAvailableTeachers();
-
-   @Query("SELECT u FROM SystemUser u WHERE u.userAssigned = false AND u.role.rolName = 'Estudiante'")
-    List<SystemUser> findAvailableStudents();
 }

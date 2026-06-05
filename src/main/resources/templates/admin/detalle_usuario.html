@@ -20,20 +20,16 @@
             <th>Nombre Usuario</th>
             <th>Contraseña</th>
             <th>Rol</th>
-            <th>Estado</th>
+            <th>Estado de Asignación</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td th:text="${usuario.userId}"></td>
-
             <td th:text="${usuario.userName}"></td>
-
             <td th:text="${usuario.userPassword}"></td>
-
             <td th:text="${usuario.role.rolName}"></td>
-
-            <td th:text="${usuario.userAssigned ? 'Activo' : 'Inactivo'}"></td>
+            <td th:text="${usuario.userAssigned ? 'Asignado' : 'Inactivo'}"></td>
           </tr>
         </tbody>
       </table>
@@ -41,7 +37,6 @@
       <br /><br />
 
       <!-- TABLA DOCENTE -->
-
       <div th:if="${teacher != null}">
         <h1>Información del Docente</h1>
 
@@ -65,33 +60,45 @@
           <tbody>
             <tr>
               <td th:text="${teacher.teacherId}"></td>
-
               <td th:text="${teacher.firstName}"></td>
-
               <td th:text="${teacher.secondName}"></td>
-
               <td th:text="${teacher.lastName}"></td>
-
               <td th:text="${teacher.secondLastName}"></td>
-
               <td th:text="${teacher.documentNumber}"></td>
-
               <td th:text="${teacher.birthdate}"></td>
-
               <td th:text="${teacher.gmail}"></td>
-
               <td th:text="${teacher.phoneNumber}"></td>
-
               <td th:text="${teacher.academicTitle}"></td>
-
               <td th:text="${teacher.direction}"></td>
             </tr>
           </tbody>
         </table>
+
+        <br />
+
+        <div class="acciones-detalle">
+
+          <a
+            th:href="@{/docentes/editar/{id}(id=${teacher.teacherId})}"
+            class="btn btn-editar">
+
+            Editar Docente
+          </a>
+
+         <button
+            type="button"
+            class="btn btn-nuevo"
+            th:attr="data-url=@{/docentes/eliminar/{id}(id=${teacher.teacherId})}"
+            onclick="abrirModal(this)">
+
+            Eliminar Docente
+          </button>
+
+        </div>
+          
       </div>
 
       <!-- TABLA ESTUDIANTE -->
-
       <div th:if="${student != null}">
         <h1>Información del Estudiante</h1>
 
@@ -110,45 +117,134 @@
               <th>Nombre Tutor</th>
               <th>Tel Tutor</th>
               <th>Dirección</th>
-              <th>ID Grupo</th>
+              <th>Grupo</th>
             </tr>
           </thead>
 
           <tbody>
             <tr>
               <td th:text="${student.studentId}"></td>
-
               <td th:text="${student.firstName}"></td>
-
               <td th:text="${student.secondName}"></td>
-
               <td th:text="${student.lastName}"></td>
-
               <td th:text="${student.secondLastName}"></td>
-
               <td th:text="${student.documentType}"></td>
-
               <td th:text="${student.documentNumber}"></td>
-
               <td th:text="${student.birthdate}"></td>
-
               <td th:text="${student.phoneNumber}"></td>
-
               <td th:text="${student.tutorName}"></td>
-
               <td th:text="${student.tutorPhoneNumber}"></td>
-
               <td th:text="${student.direction}"></td>
-
-              <td th:text="${student.group}"></td>
+              <td th:text="${student.group.groupName}"></td>
             </tr>
           </tbody>
         </table>
+
+        <br />
+
+        <div class="acciones-detalle">
+
+          <a
+            th:href="@{/estudiante/editar/{id}(id=${student.studentId})}"
+            class="btn btn-editar">
+
+            Editar Estudiante
+          </a>
+
+          <button
+            type="button"
+            class="btn btn-nuevo"
+            th:attr="data-url=@{/estudiante/eliminar/{id}(id=${student.studentId})}"
+            onclick="abrirModal(this)">
+
+            Eliminar Estudiante
+          </button>
+
+        </div>
       </div>
 
       <br />
 
-      <a th:href="@{/usuarios}" class="btn btn-editar"> Volver </a>
+      <div class="acciones-detalle">
+
+          <a
+            th:href="@{/usuarios}" class="btn btn-ver">
+
+            Regresar
+          </a>
+       
+      </div>
     </div>
+        <!-- POPUP ÉXITO -->
+    <div th:if="${mensajeExito}" id="popup-exito" class="popup-overlay">
+      <div class="popup-card">
+        <div class="check-container">
+          <div class="check-circle">✓</div>
+        </div>
+        <h2 th:text="${mensajeExito}"></h2>
+      </div>
+    </div>
+
+    <script>
+      const popup = document.getElementById("popup-exito");
+
+      if (popup) {
+        setTimeout(() => {
+          popup.classList.add("ocultar");
+        }, 1000);
+      }
+    </script>
+
+    <!-- MODAL ELIMINAR -->
+    <div id="modalEliminar" class="modal-overlay">
+      <div class="modal-card">
+
+        <h2>¿Está seguro de eliminar este registro?</h2>
+
+        <p>
+          Esta acción no se puede deshacer.
+        </p>
+
+        <div class="modal-buttons">
+
+          <a
+            id="btnConfirmarEliminar"
+            href="#"
+            class="btn btn-confirmar">
+
+            Eliminar
+          </a>
+
+          <button
+            type="button"
+            class="btn btn-cancelar-modal"
+            onclick="cerrarModal()">
+
+            Cancelar
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function abrirModal(button) {
+        const url = button.getAttribute("data-url");
+
+        document.getElementById(
+          "btnConfirmarEliminar"
+        ).href = url;
+
+        document
+          .getElementById("modalEliminar")
+          .classList.add("mostrar-modal");
+      }
+
+      function cerrarModal() {
+        document
+          .getElementById("modalEliminar")
+          .classList.remove("mostrar-modal");
+      }
+    </script>
   </body>
 </html>

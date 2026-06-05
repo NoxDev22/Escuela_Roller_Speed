@@ -66,43 +66,39 @@ private StudentRepository studentRepository;
         return "redirect:/usuarios";
     }
 
-    // VER DETALLE USUARIO
-        @GetMapping("/usuarios/detalle/{id}")
-        public String verDetalleUsuario(
-                @PathVariable Long id,
-                Model model
-        ) {
-        SystemUser usuario =
-                userService.buscarPorId(id);
-        model.addAttribute(
-                "usuario",
-                usuario
-        );
-        String rol =
-                usuario.getRole().getRolName();
+ // VER DETALLE USUARIO
+@GetMapping("/usuarios/detalle/{id}")
+public String verDetalleUsuario(
+        @PathVariable Long id,
+        Model model
+) {
 
-        // SI ES DOCENTE
-        if (rol.equalsIgnoreCase("Docente")) {
-                Teacher teacher =
-                        teacherRepository.findByUser_UserId(id);
-                model.addAttribute(
-                        "teacher",
-                        teacher
-                );
+    SystemUser usuario = userService.buscarPorId(id);
+
+    model.addAttribute("usuario", usuario);
+
+    String rol = usuario.getRole().getRolName();
+
+    // SI ES DOCENTE
+    if (rol.equalsIgnoreCase("Docente")) {
+
+        Teacher teacher = teacherRepository.findByUser_UserId(id).orElseThrow(() -> new RuntimeException("Docente no encontrado"+ id));
+
+        if (teacher != null) {
+            model.addAttribute("teacher", teacher);
         }
+    }
 
     // SI ES ESTUDIANTE
     if (rol.equalsIgnoreCase("Estudiante")) {
-        Student student =
-                studentRepository.findByUser_UserId(id).orElseThrow(() -> new RuntimeException("Estudiante no encontrado"+ id));
-        model.addAttribute(
-                "student",
-                student
-        );
+
+        studentRepository.findByUser_UserId(id).orElseThrow(() -> new RuntimeException("Estudiante no encontrado"+ id)).ifPresent(student -> model.addAttribute("student", student));
+                
     }
 
-    return "admin/detalle_usuario";
-}
+        return "admin/detalle_usuario";
+        }
+
     // FORMULARIO EDITAR
     @GetMapping("/usuarios/editar/{id}")
     public String editarUsuario(
@@ -123,12 +119,20 @@ private StudentRepository studentRepository;
     }
     // ACTUALIZAR USUARIO
     @PostMapping("/usuarios/actualizar")
-    public String actualizarUsuario(
-            @ModelAttribute SystemUser usuario
-    ) {
-        userService.guardarUsuario(usuario);
-        return "redirect:/usuarios";
-    }
+public String actualizarUsuario(
+        @ModelAttribute SystemUser usuario,
+        RedirectAttributes redirectAttributes
+) {
+
+    userService.guardarUsuario(usuario);
+
+    redirectAttributes.addFlashAttribute(
+            "mensajeExito",
+            "Usuario actualizado"
+    );
+
+    return "redirect:/usuarios";
+}
 
     // ELIMINAR USUARIO
     @GetMapping("/usuarios/eliminar/{id}")

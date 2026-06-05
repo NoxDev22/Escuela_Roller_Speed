@@ -53,29 +53,38 @@ public List<SystemUser> listarUsuarios() {
         
         return optional.orElse(null);
     }
- // ELIMINAR
-    @Transactional
-    public void eliminarUsuario(Long id) {
-        // Buscar estudiante asociado
-        Student student =
-                studentRepository.findByUser_UserId(id).orElseThrow(() -> new RuntimeException("Estudiante no encontrado"+ id));
-        if (student != null) {
-            // Quitar relación con usuario
-            student.setUser(null);
-            // Guardar cambios
-            studentRepository.save(student);
-        }
-        // Buscar docente asociado
-        Teacher teacher =
-                teacherRepository.findByUser_UserId(id);
-        if (teacher != null) {
-            // Quitar relación con usuario
-            teacher.setUser(null);
-            // Guardar cambios
-            teacherRepository.save(teacher);
-        }
-        // Eliminar usuario
-        userRepository.deleteById(id);
+// ELIMINAR
+@Transactional
+public void eliminarUsuario(Long id) {
+
+    // Buscar estudiante asociado
+    studentRepository.findByUser_UserId(id).orElseThrow(() -> new RuntimeException(Usuario no encontrado"+ id))
+            .ifPresent(student -> {
+
+                // Quitar relación con usuario
+                student.setUser(null);
+
+                // Guardar cambios
+                studentRepository.save(student);
+
+            });
+
+    // Buscar docente asociado
+    Teacher teacher =
+            teacherRepository.findByUser_UserId(id).orElseThrow(() -> new RuntimeException("Entrenador no encontrado "));
+
+    if (teacher != null) {
+
+        // Quitar relación con usuario
+        teacher.setUser(null);
+
+        // Guardar cambios
+        teacherRepository.save(teacher);
+
+    }
+
+    // Eliminar usuario
+    userRepository.deleteById(id);
 
     }
 }
