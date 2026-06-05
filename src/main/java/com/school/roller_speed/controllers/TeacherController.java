@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.school.roller_speed.models.SystemUser;
 import com.school.roller_speed.models.Teacher;
@@ -49,4 +51,71 @@ public class TeacherController {
         
         return "redirect:/entrenador/agregar?exito=true";
     }
+    /*==============================================*/
+    // EDITAR DOCENTE
+    @GetMapping("/docentes/editar/{id}")
+    public String editarDocente(
+        @PathVariable Long id,
+        Model model) {
+
+    Teacher teacher = teacherRepository.findById(id)
+            .orElseThrow(() ->
+                    new RuntimeException("Docente no encontrado"));
+
+    model.addAttribute("teacher", teacher);
+
+    return "admin/editar_docente";
+    }
+
+    /*==============================================*/
+    // ACTUALIZAR DOCENTE
+   @PostMapping("/docentes/actualizar")
+        public String actualizarDocente(
+        @ModelAttribute Teacher teacher,
+        RedirectAttributes redirectAttributes) {
+
+    Teacher existing = teacherRepository.findById(teacher.getTeacherId())
+            .orElseThrow(() ->
+                    new RuntimeException("Docente no encontrado"));
+
+    existing.setFirstName(teacher.getFirstName());
+    existing.setSecondName(teacher.getSecondName());
+    existing.setLastName(teacher.getLastName());
+    existing.setSecondLastName(teacher.getSecondLastName());
+    existing.setDocumentNumber(teacher.getDocumentNumber());
+    existing.setBirthdate(teacher.getBirthdate());
+    existing.setGmail(teacher.getGmail());
+    existing.setPhoneNumber(teacher.getPhoneNumber());
+    existing.setAcademicTitle(teacher.getAcademicTitle());
+    existing.setDirection(teacher.getDirection());
+
+    teacherRepository.save(existing);
+
+     redirectAttributes.addFlashAttribute(
+            "mensajeExito",
+            "Docente actualizado"
+    );
+
+    return "redirect:/usuarios";
+    }
+    /*==============================================*/
+    // ELIMINAR DOCENTE
+    @GetMapping("/docentes/eliminar/{id}")
+    public String eliminarDocente(@PathVariable Long id) {
+
+    Teacher teacher = teacherRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Docente no encontrado"));
+        //Eliminar docente y cambiar al usuario a inactivo
+    if (teacher.getUser() != null) {
+        SystemUser user = teacher.getUser();
+        user.setUserAssigned(false);
+        systemUserRepository.save(user);
+    }
+
+    teacherRepository.delete(teacher);
+
+    return "redirect:/usuarios";
+    }
+
+
 }
